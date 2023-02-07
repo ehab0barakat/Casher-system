@@ -204,9 +204,12 @@
                                 suffixKeyCodes: [13], // enter-key expected at the end of a scan
                                 reactToPaste: true, // Compatibility to built-in scanners in paste-mode (as opposed to keyboard-mode)
                                 onScan: function(sCode, iQty) { // Alternative to document.addEventListener('scan')
-                                    if (!showRestock && applyScanner) {
+                                    document.getElementById("barcodeId").value = sCode;
+                                    if (!showRestock && !applyScanner) {
                                         Livewire.emit('add', sCode);
+
                                     } else {
+                                        console.log("2")
                                         Livewire.emit('edit', sCode);
                                     }
                                 },
@@ -296,6 +299,7 @@
 
                             </x-file-upload>
 
+                            {{$barcodeId}}
                             <!-- Product Info -->
                             <div class="flex flex-col flex-grow gap-4 2xl:gap-4 lg:gap-2">
 
@@ -304,14 +308,23 @@
                                         <x-input.group inline label="{{ __('fields.Barcode') }}"
                                             for='editing.barcodeId' :error="$errors->first('editing.barcodeId')">
 
-                                            <x-jet-input autofocus onFocus="this.select()"
-                                                wire:model.defer='editing.barcodeId' id="editing.barcodeId"
+                                            <x-jet-input wire:model.defer='editing.barcodeId' id="editing.barcodeId"
                                                 class="block w-full" type="text" name="editing.barcodeId"
                                                 placeholder="{{ __('placeholders.Barcode') }}" :value="old('editing.barcodeId')" />
 
                                         </x-input.group>
                                     @endif
 
+                                </div>
+
+                                <div class="hidden">
+                                    <x-input.group inline label="{{ __('fields.Barcode') }}" for='barcodeId'
+                                        :error="$errors->first('barcodeId')">
+
+                                        <x-jet-input wire:model.defer='barcodeId' id="barcodeId"
+                                            class="block w-full" type="text" name="barcodeId"
+                                            placeholder="{{ __('placeholders.Barcode') }}" :value="old('barcodeId')" />
+                                    </x-input.group>
                                 </div>
 
                                 <x-input.group inline label="{{ __('fields.name') }}" for='product.name'

@@ -24,6 +24,7 @@ class Products extends Component
     // SCAN (optional)
 
     public $applyScanner = false;
+    public $newScannedCode = "asdasd";
 
 
     //FULL LIST
@@ -125,14 +126,14 @@ class Products extends Component
     {
 
         $this->validate();
-
-;        if (isset($this->photo)) {
+        if (isset($this->photo)) {
 
             if (isset($this->editing->photo))
                 Storage::disk('products')->delete($this->editing->photo);
 
             $this->editing->photo = $this->photo->store('/', 'products');
         }
+        $this->editing->barcodeId = $this->barcodeId;
 
         if (($this->showEdit || $this->showEditModal)) {
             $this->editing->save();
@@ -232,12 +233,12 @@ class Products extends Component
     public function editStock($barCodeId)
     {
         if (empty($barCodeId))
-        return $this->notify(false, __('messages.barcode-id-not-found'));
+            return $this->notify(false, __('messages.barcode-id-not-edit 1'));
 
         $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->first();
 
         if (!isset($scannedProduct))
-            return $this->notify(false, __('messages.product-id-not-found'));
+            return $this->notify(false, __('messages.product-id-not-edit 2'));
 
         $this->showRestock = true;
 
@@ -248,10 +249,11 @@ class Products extends Component
     public $barcodeId;
     public function addNewProduct($barCodeId)
     {
-        return $this->notify(false, __('messages.here is add new product'));
         if (empty($barCodeId))
-            return $this->notify(false, __('messages.barcode-id-not-found'));
+            return $this->notify(false, __('messages.barcode-id-not-add'));
 
+        $this->showRestock = false;
+        $this->showEdit = true;
         $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->first();
 
         if (isset($scannedProduct))
