@@ -299,7 +299,6 @@
 
                             </x-file-upload>
 
-                            {{$barcodeId}}
                             <!-- Product Info -->
                             <div class="flex flex-col flex-grow gap-4 2xl:gap-4 lg:gap-2">
 
@@ -321,8 +320,8 @@
                                     <x-input.group inline label="{{ __('fields.Barcode') }}" for='barcodeId'
                                         :error="$errors->first('barcodeId')">
 
-                                        <x-jet-input wire:model.defer='barcodeId' id="barcodeId"
-                                            class="block w-full" type="text" name="barcodeId"
+                                        <x-jet-input wire:model.defer='barcodeId' id="barcodeId" class="block w-full"
+                                            type="text" name="barcodeId"
                                             placeholder="{{ __('placeholders.Barcode') }}" :value="old('barcodeId')" />
                                     </x-input.group>
                                 </div>

@@ -4,35 +4,25 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Order;
+use Carbon\Carbon;
 use Tests\Feature\UpdatePasswordTest;
 
 class Reports extends Component
 {
 
-
-
-
-
-
-
-
-    // public $startDate = '2022-01-01';
-    // public $endDate = '2022-07-30';
-
     public $startDate = null;
     public $endDate = null;
 
-    public $date;
+    //LISTENERS
+    protected $listeners = [
+        'dateChange' => 'dateChange',
+    ];
 
-
-    public function updatedDate()
+    public function dateChange($startDate , $endDate)
     {
-        dd($this->date);
+        $this->startDate = $startDate ;
+        $this->endDate = $endDate ;
     }
-
-
-
-
 
     public function render()
     {
@@ -41,14 +31,13 @@ class Reports extends Component
             $itemsList = Order::select('id', 'user_id' , 'branch_id' , 'client_id'  , 'total' , 'created_at')
             // ->orderBy($this->field, $this->direction)
             ->get();
+
         }else{
             $itemsList = Order::select('id', 'user_id' , 'branch_id' , 'client_id'  , 'total' , 'created_at')
             ->whereBetween('created_at', [$this->startDate, $this->endDate])
             // ->orderBy($this->field, $this->direction)
             ->get();
         }
-
-
 
 
         return view('livewire.admin.reports' , [

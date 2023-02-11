@@ -24,7 +24,6 @@ class Products extends Component
     // SCAN (optional)
 
     public $applyScanner = false;
-    public $newScannedCode = "asdasd";
 
 
     //FULL LIST

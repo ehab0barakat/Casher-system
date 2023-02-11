@@ -1,0 +1,28 @@
+{
+  "public/fonts/Roboto-Light.ttf": {
+    "file": "assets/Roboto-Light.2835b358.ttf",
+    "src": "public/fonts/Roboto-Light.ttf"
+  },
+  "public/fonts/Roboto-Regular.ttf": {
+    "file": "assets/Roboto-Regular.319cff6e.ttf",
+    "src": "public/fonts/Roboto-Regular.ttf"
+  },
+  "public/fonts/Roboto-Medium.ttf": {
+    "file": "assets/Roboto-Medium.4ac8e036.ttf",
+    "src": "public/fonts/Roboto-Medium.ttf"
+  },
+  "public/fonts/Roboto-Bold.ttf": {
+    "file": "assets/Roboto-Bold.baf44ce8.ttf",
+    "src": "public/fonts/Roboto-Bold.ttf"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app.b6eb6cf3.js",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/css/app.css": {
+    "file": "assets/app.3822a44c.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  }
+}

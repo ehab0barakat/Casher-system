@@ -22,10 +22,10 @@ class Dashboard extends Component
     public function finishOrder()
     {
         //CHECK IF CLIENT IS SELECTED
-        if (!isset($this->selectedClientId)) {
-            $this->notify(true, __('messages.please-select-client'));
-            return $this->showFinish = false;
-        }
+        // if (!isset($this->selectedClientId)) {
+        //     $this->notify(true, __('messages.please-select-client'));
+        //     return $this->showFinish = false;
+        // }
 
         //CHECK IF THERE ARE PRODUCTS / SERVICES
         if (count($this->itemsList) == 0) {
