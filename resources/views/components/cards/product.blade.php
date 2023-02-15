@@ -1,4 +1,4 @@
-@props(['id', 'name', 'quantity', 'retailPrice', 'costPrice', 'url', "category_name" , 'barcodeUrl', 'supplierNameAndCompany', 'editAction', 'deleteAction'])
+@props(['id', 'name', 'quantity', 'retailPrice', 'costPrice', 'url', "categoryName" , 'barcodeUrl', 'supplierNameAndCompany', 'editAction', 'deleteAction'])
 <div
     class="rounded-lg shadow-lg p-4 lg:p-2 2xl:p-4 bg-[#6E7180] bg-opacity-20 gap-4 lg:gap-2 2xl:gap-4 items-center flex justify-between border border-m-orange/20">
 
@@ -38,7 +38,7 @@
 
             <span class="text-sm 2xl:text-base font-roboto-l">
                 <span class="font-roboto-b">{{ __('fields.category-label') }}</span>
-                {{-- {{ $category_name }} - --}}
+                {{ $categoryName }} -
             </span>
 
         </div>

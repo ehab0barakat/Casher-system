@@ -95,7 +95,7 @@
                             costPrice="{{ $product->costPriceInCurrency }}"
                             retailPrice="{{ $product->retailPriceInCurrency }}"
                             supplierNameAndCompany="{{ $product->supplierNameAndCompany }}"
-                            category_name="{{ $product->CategoryName }}" editAction='showEdit'
+                            categoryName="{{ $product->category->name }}" editAction='showEdit'
                             quantity="{{ $product->quantityInThreeDigits }}" deleteAction='showDelete' />
                     </div>
                 @empty
@@ -190,7 +190,7 @@
                     <div class="flex items-center justify-start gap-4">
 
                         <x-buttons.switch title="{{ __('fields.add-edit') }}"
-                            wire:click="$toggle('showRestock', false)" class="flex items-center gap-2"
+                            wire:click="$toggle('showRestock', false)"  class="flex items-center gap-2"
                             :disable='$showRestock'>
                             <x-icons.add-edit />
                         </x-buttons.switch>
@@ -217,8 +217,8 @@
                         </script>
 
                         <x-buttons.switch title="{{ __('fields.restock') }}" wire:click="$toggle('showRestock', true)"
-                            class="flex items-center gap-2" :disable='!$showRestock'>
-                            <x-icons.restock />
+                            class="flex items-center gap-2" :disable='!$showRestock' >
+                            <x-icons.restock  />
                         </x-buttons.switch>
 
                     </div>

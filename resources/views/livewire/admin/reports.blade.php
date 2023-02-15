@@ -41,10 +41,6 @@
                             <x-table.cell>No Name</x-table.cell>
                         @endif
 
-
-
-
-
                         <x-table.cell>
                             <table class="table-auto">
                                 <thead class="w-100">

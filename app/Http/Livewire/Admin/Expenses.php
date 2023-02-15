@@ -39,7 +39,6 @@ class Expenses extends Component
 
     public function updatedShowSearch()
     {
-
         if (!$this->showSearch)
             $this->searchQuery = null;
     }
@@ -54,7 +53,6 @@ class Expenses extends Component
 
     public function showAddModal()
     {
-
         $this->editing = Expense::make();
         $this->type = '0';
         $this->showEditModal = true;
@@ -62,7 +60,6 @@ class Expenses extends Component
 
     public function showRentModal()
     {
-
         $this->editing = Expense::make();
         $this->type = '1';
         $this->showRentModal = true;
@@ -70,7 +67,6 @@ class Expenses extends Component
 
     public function showWorkerModal()
     {
-
         $this->editing = Expense::make();
         $this->type = '2';
         $this->editing->metaData = [

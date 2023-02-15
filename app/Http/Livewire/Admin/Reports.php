@@ -26,12 +26,11 @@ class Reports extends Component
 
     public function render()
     {
-
+        $shift = Order::whereBetween('created_at', [carbon::today(), Carbon::now()])->sum("total");
         if($this->startDate == null || $this->endDate == null){
             $itemsList = Order::select('id', 'user_id' , 'branch_id' , 'client_id'  , 'total' , 'created_at')
             // ->orderBy($this->field, $this->direction)
             ->get();
-
         }else{
             $itemsList = Order::select('id', 'user_id' , 'branch_id' , 'client_id'  , 'total' , 'created_at')
             ->whereBetween('created_at', [$this->startDate, $this->endDate])
@@ -39,9 +38,9 @@ class Reports extends Component
             ->get();
         }
 
-
         return view('livewire.admin.reports' , [
-            'itemsList' => $itemsList
+            'itemsList' => $itemsList ,
+            'shift' => $shift ,
         ]);
     }
 }

@@ -25,7 +25,6 @@ class Products extends Component
 
     public $applyScanner = false;
 
-
     //FULL LIST
     public $products;
     public $suppliers;
@@ -132,7 +131,10 @@ class Products extends Component
 
             $this->editing->photo = $this->photo->store('/', 'products');
         }
-        $this->editing->barcodeId = $this->barcodeId;
+
+            if($this->barcodeId != null){
+                $this->editing->barcodeId = $this->barcodeId;
+            }
 
         if (($this->showEdit || $this->showEditModal)) {
             $this->editing->save();
@@ -146,6 +148,7 @@ class Products extends Component
         $this->showEditModal = false;
         $this->resetProduct();
         $this->showEdit = false;
+        $this->barcodeId = null ;
     }
 
 
