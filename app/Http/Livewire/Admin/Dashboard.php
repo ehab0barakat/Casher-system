@@ -69,11 +69,13 @@ class Dashboard extends Component
 
             //IS PRODUCT
             // if (Str::contains($key, '0_')) {
-
+            $product = Product::find($item['id']);
             OrderProduct::create([
                 'order_id' => $order->id,
-                'product_id' => $item['id'],
+                'product_id' => $product->id,
                 'quantity' => $item['quantity'],
+                'price' => $product->retailPrice,
+                'total' => $product->retailPrice * $item['quantity'],
             ]);
 
             //UPDATE QUANTITY
@@ -150,7 +152,7 @@ class Dashboard extends Component
 
         unset($this->itemsList[$this->selectedItemKey]);
 
-        $this->notify(false,'messages.item-deleted');
+        $this->notify(false, 'messages.item-deleted');
 
         $this->showDeleteItem = false;
     }
@@ -270,13 +272,13 @@ class Dashboard extends Component
 
     public function onCategorySelected($category)
     {
-        $this->PickProducts = true ;
-        $this->emit('ProductShow',["id" => $category["id"]]);
+        $this->PickProducts = true;
+        $this->emit('ProductShow', ["id" => $category["id"]]);
     }
 
     public function onShowCategories()
     {
-        $this->PickProducts = false ;
+        $this->PickProducts = false;
     }
 
 
@@ -295,7 +297,7 @@ class Dashboard extends Component
             } else {
                 $this->itemsList['1_' . $selectedProduct->id] = [
                     'id' => $selectedProduct->id,
-                    'name' => $selectedProduct->name ,
+                    'name' => $selectedProduct->name,
                     'retailPrice' => $selectedProduct->costPrice,
                     'retailPriceInCurrency' => $selectedProduct->costPriceInCurrency,
                     'quantity' => 1,
@@ -305,7 +307,6 @@ class Dashboard extends Component
             $this->subtotal += $selectedProduct->costPrice;
             $this->total = $this->subtotal - $this->discount;
             return $this->notify(false, __('messages.item-added'));
-
         }
     }
 

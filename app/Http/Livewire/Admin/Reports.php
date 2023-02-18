@@ -28,13 +28,10 @@ class Reports extends Component
     {
         $shift = Order::whereBetween('created_at', [carbon::today(), Carbon::now()])->sum("total");
         if($this->startDate == null || $this->endDate == null){
-            $itemsList = Order::select('id', 'user_id' , 'branch_id' , 'client_id'  , 'total' , 'created_at')
-            // ->orderBy($this->field, $this->direction)
+            $itemsList = Order::orderByDesc("created_at")
             ->get();
         }else{
-            $itemsList = Order::select('id', 'user_id' , 'branch_id' , 'client_id'  , 'total' , 'created_at')
-            ->whereBetween('created_at', [$this->startDate, $this->endDate])
-            // ->orderBy($this->field, $this->direction)
+            $itemsList = Order::orderByDesc("created_at")
             ->get();
         }
 
