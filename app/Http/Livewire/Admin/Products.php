@@ -107,7 +107,7 @@ class Products extends Component
     }
 
     // FOR EDIT
-    public $showEdit = false;
+    public $showEdit = True;
 
     public function showEdit(Product $product)
     {
@@ -187,6 +187,21 @@ class Products extends Component
         $this->showDelete = false;
     }
 
+    ///// SWITCHES
+
+        public function Switch()
+        {
+        $this->showRestock = !$this->showRestock ;
+        $this->resetProduct();
+        $this->resetRestock();
+
+
+        }
+
+
+
+
+
     //COMPONENT
     public function rules()
     {
@@ -228,43 +243,40 @@ class Products extends Component
 
     //LISTENERS
     protected $listeners = [
-        'add' => 'addNewProduct',
-        'edit' => 'editStock',
+        'scan' => 'scan',
     ];
 
-    public function editStock($barCodeId)
-    {
-        if (empty($barCodeId))
-            return $this->notify(false, __('messages.barcode-id-not-edit 1'));
-
-        $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->first();
-
-        if (!isset($scannedProduct))
-            return $this->notify(false, __('messages.product-id-not-edit 2'));
-
-        $this->showRestock = true;
-
-        $this->selectedProductId = $scannedProduct->id;
-        $this->restock = $scannedProduct->quantity;
-    }
-
     public $barcodeId;
-    public function addNewProduct($barCodeId)
+    public function scan($barCodeId)
     {
         if (empty($barCodeId))
             return $this->notify(false, __('messages.barcode-id-not-add'));
 
-        $this->showRestock = false;
-        $this->showEdit = true;
-        $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->first();
+            $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->whereStatus("1")->first();
 
-        if (isset($scannedProduct))
-            return $this->notify(false, __('messages.product-Exists'));
+            if (!isset($scannedProduct)){
+            $this->showRestock = false;
+            $this->showEdit = true;
+            $this->barcodeId = $barCodeId;
+        }else{
 
-        $this->barcodeId = $barCodeId;
+            if($this->showRestock && !$this->showEdit){
+                $this->showRestock = true;
+                $this->showEdit = False;
+                $this->selectedProductId = $scannedProduct->id;
+                $this->restock = $scannedProduct->quantity;
+            }
+
+            if(!$this->showRestock && !$this->showEdit){
+                $this->showEdit($scannedProduct);
+
+            }
+
+
+            // dd($this->showRestock ,  $this->showEdit);
+        }
+
     }
-
-
 
     public function render()
     {

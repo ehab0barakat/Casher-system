@@ -24,7 +24,7 @@
 
             </x-slot>
 
-            <x-slot name="body">
+            <x-slot name="body" >
                 @forelse ($itemsList as $item)
                     <x-table.row wire:key='t-r-{{ $loop->index }}' wire:loading.class.delay="opacity-50"
                         class="transition delay-100">
@@ -41,7 +41,7 @@
                             <x-table.cell>No Name</x-table.cell>
                         @endif
 
-                        <x-table.cell>
+                        <x-table.cell >
                             <table class="table-auto">
                                 <thead class="w-100">
                                     <tr>
@@ -119,5 +119,11 @@
             });
         });
     </script>
+
+    <style>
+        body{
+            overflow-y: scroll !important;
+        }
+    </style>
 
 </div>

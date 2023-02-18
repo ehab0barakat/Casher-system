@@ -190,7 +190,7 @@
                     <div class="flex items-center justify-start gap-4">
 
                         <x-buttons.switch title="{{ __('fields.add-edit') }}"
-                            wire:click="$toggle('showRestock', false)"  class="flex items-center gap-2"
+                        wire:click="Switch" class="flex items-center gap-2"
                             :disable='$showRestock'>
                             <x-icons.add-edit />
                         </x-buttons.switch>
@@ -205,18 +205,12 @@
                                 reactToPaste: true, // Compatibility to built-in scanners in paste-mode (as opposed to keyboard-mode)
                                 onScan: function(sCode, iQty) { // Alternative to document.addEventListener('scan')
                                     document.getElementById("barcodeId").value = sCode;
-                                    if (!showRestock && !applyScanner) {
-                                        Livewire.emit('add', sCode);
-
-                                    } else {
-                                        console.log("2")
-                                        Livewire.emit('edit', sCode);
-                                    }
+                                        Livewire.emit('scan', sCode);
                                 },
                             });
                         </script>
 
-                        <x-buttons.switch title="{{ __('fields.restock') }}" wire:click="$toggle('showRestock', true)"
+                        <x-buttons.switch title="{{ __('fields.restock') }}" wire:click="Switch"
                             class="flex items-center gap-2" :disable='!$showRestock' >
                             <x-icons.restock  />
                         </x-buttons.switch>
