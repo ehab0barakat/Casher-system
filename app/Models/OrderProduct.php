@@ -13,8 +13,10 @@ class OrderProduct extends Model
         'order_id',
         'product_id',
         'quantity',
-        'price',
-        'total',
+        'costPrice',
+        'retailPrice',
+        'costTotal',
+        'retailTotal',
     ];
 
     //FOREIGN KEYS

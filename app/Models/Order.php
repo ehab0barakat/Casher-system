@@ -17,6 +17,7 @@ class Order extends Model
         'subtotal',
         'discount',
         'total',
+        'order_type',
     ];
 
     //FOREIGN KEYS

@@ -17,7 +17,60 @@ class Dashboard extends Component
     use WithNotify;
 
     public $showFinish = false;
+    public $showReturn = false;
     public $PickProducts = false;
+
+    public function returnOrder()
+    {
+
+        //CHECK IF THERE ARE PRODUCTS / SERVICES
+        if (count($this->itemsList) == 0) {
+            $this->notify(true, __('messages.items-List-empty'));
+            return $this->showFinish = false;
+        }
+
+        // CHECK TOTALS
+        if ($this->subtotal == 0 || $this->total == 0) {
+            $this->notify(true, __('messages.total-not-valid'));
+            return $this->showFinish = false;
+        }
+        //CREATING ORDER
+        $order = Order::create(
+            [
+                'user_id' => auth()->user()->id,
+                'branch_id' => auth()->user()->branch_id,
+                'client_id' => $this->selectedClientId,
+                'subtotal' => $this->subtotal,
+                'discount' => $this->discount,
+                'total' => $this->total,
+                'order_type' => '1',
+            ]
+        );
+
+        //CREATE ITEMS IN ORDER
+        foreach ($this->itemsList as $key => $item) {
+
+            //IS PRODUCT
+            // if (Str::contains($key, '0_')) {
+            $product = Product::find($item['id']);
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'quantity' => $item['quantity'],
+                'costPrice' => $product->costPrice,
+                'retailPrice' => $product->retailPrice,
+                'costTotal' => $product->costPrice * $item['quantity'],
+                'retailTotal' => $product->retailPrice * $item['quantity'],
+            ]);
+
+            //UPDATE QUANTITY
+            $product->update(["quantity" => $product->quantity + $item['quantity'] ]);
+
+        }
+
+        //RESET ORDER
+        $this->cancelOrder();
+    }
 
     public function finishOrder()
     {
@@ -51,7 +104,6 @@ class Dashboard extends Component
                 }
             }
         }
-
         //CREATING ORDER
         $order = Order::create(
             [
@@ -74,8 +126,10 @@ class Dashboard extends Component
                 'order_id' => $order->id,
                 'product_id' => $product->id,
                 'quantity' => $item['quantity'],
-                'price' => $product->retailPrice,
-                'total' => $product->retailPrice * $item['quantity'],
+                'costPrice' => $product->costPrice,
+                'retailPrice' => $product->retailPrice,
+                'costTotal' => $product->costPrice * $item['quantity'],
+                'retailTotal' => $product->retailPrice * $item['quantity'],
             ]);
 
             //UPDATE QUANTITY

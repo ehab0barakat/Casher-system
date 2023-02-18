@@ -21,6 +21,8 @@ class CreateOrdersTable extends Migration
             $table->double('subtotal', 8, 2);
             $table->double('discount', 8, 2);
             $table->double('total', 8, 2);
+            $table->enum('order_type',['0' , '1'])->default('0');  // 0 => order ,, 1 => return order
+
             $table->timestamps();
         });
     }

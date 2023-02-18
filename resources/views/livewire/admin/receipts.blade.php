@@ -79,13 +79,13 @@
                                 {{ \Illuminate\Support\Str::limit($item->product->name, 18, '..') }}
                             </td>
                             <td class="font-bold text-black	text-sm ">
-                                {{ $item->product->retailPrice }}
+                                {{ $item->costPrice }}
                             </td>
                             <td class="font-bold text-black	text-sm ">
                                 {{ $item->quantityInTwoDigits }}
                             </td>
                             <td class="font-bold text-black	text-sm ">
-                                {{ $item->quantity * $item->product->retailPrice }}
+                                {{ $item->quantity * $item->costPrice }}
                             </td>
                         </tr>
                     @endforeach

@@ -31,7 +31,9 @@ class Reports extends Component
             $itemsList = Order::orderByDesc("created_at")
             ->get();
         }else{
-            $itemsList = Order::orderByDesc("created_at")
+            $itemsList = Order::whereBetween('created_at', [$this->startDate, $this->endDate])
+            // ->orderBy($this->field, $this->direction)
+            ->orderByDesc("created_at")
             ->get();
         }
 

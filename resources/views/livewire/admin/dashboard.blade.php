@@ -154,6 +154,11 @@
                 <div
                     class="flex items-center justify-center w-full gap-4 px-6 transition delay-100 bg-white border shadow-md 2xl:px-6 2xl:py-2 2xl:gap-4 lg:gap-2 rounded-xl border-m-orange-l/20 shadow-m-orange-l/50">
 
+                    <x-buttons.rounded wire:click="$toggle('showReturn')" color='green-500' hover='green-700'
+                        title="{{ __('fields.return') }}" :disabled="count($itemsList) == 0">
+                        <x-icons.return_order />
+                    </x-buttons.rounded>
+
                     <x-buttons.rounded wire:click="$toggle('showCancel')" color='red-500' hover='red-700'
                         title="{{ __('fields.cancel') }}" :disabled="count($itemsList) == 0">
                         <x-icons.cancel />
@@ -168,6 +173,7 @@
                         title="{{ __('fields.finish') }}" :disabled="count($itemsList) == 0">
                         <x-icons.cart />
                     </x-buttons.rounded>
+
 
                 </div>
 
@@ -256,6 +262,8 @@
     </script>
 
     <!-- Modals -->
+    <x-modals.confirmation action='returnOrder' model='showReturn' title="{{ __('fields.return-order') }}" />
+
     <x-modals.confirmation action='finishOrder' model='showFinish' title="{{ __('fields.finish-order') }}" />
 
     <x-modals.confirmation action='cancelOrder' model='showCancel' title="{{ __('fields.cancel-order') }}" />

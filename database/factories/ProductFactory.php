@@ -26,10 +26,9 @@ class ProductFactory extends Factory
 
             'category_id' => $this->faker->numberBetween(1, Category::all()->count()),
 
-
             'quantity' => $this->faker->numberBetween(1, 999),
-            'costPrice' => $this->faker->numberBetween(100, 10000),
-            'retailPrice' => $this->faker->numberBetween(100, 10000),
+            'retailPrice' => $this->faker->numberBetween(100, 500),
+            'costPrice' => $this->faker->numberBetween(501, 1000),
             'barcodeId' => $this->faker->unique()->numberBetween(111111,999999999),
         ];
     }
