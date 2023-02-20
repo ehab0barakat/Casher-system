@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('daily_reports', function (Blueprint $table) {
             $table->id();
+            $table->date("day");
+            $table->float("total",6 , 2);
+            $table->float("capital",6 , 2);
+            $table->float("capital_gross",6 , 2);
+            $table->float("profit",6 , 2);
             $table->timestamps();
         });
     }
