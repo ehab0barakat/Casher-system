@@ -244,7 +244,12 @@ class Products extends Component
     //LISTENERS
     protected $listeners = [
         'scan' => 'scan',
+        'editItem' => 'editItem',
     ];
+    public function editItem($item)
+    {
+        $this->editing = Product::find($item) ;
+    }
 
     public $barcodeId;
     public function scan($barCodeId)

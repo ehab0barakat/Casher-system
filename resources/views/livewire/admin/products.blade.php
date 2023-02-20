@@ -1,4 +1,14 @@
+@props(['item' => $_GET["item"] ?? ''])
 <div>
+
+    <script>
+        var item = {!! json_encode($item) !!};
+        if(item){
+            $( document ).ready(function() {
+                livewire.emit('editItem', item);
+            })
+        }
+    </script>
 
     <!-- Header -->
     <x-page.header>

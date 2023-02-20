@@ -170,10 +170,12 @@
                         <x-slot name="content">
 
                             @forelse ($notifications as $item)
-                                <span
-                                    class='block px-4 py-2 text-sm leading-5 text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:bg-gray-100'>
-                                    {{ __('fields.notify-product', ['productName' => $item->name]) }}
-                                </span>
+                                <a href="{{ route('admin.products', ['item' => $item]) }}">
+                                    <span
+                                        class='block px-4 py-2 text-sm leading-5 text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:bg-gray-100'>
+                                        {{ __('fields.notify-product', ['productName' => $item->name]) }}
+                                    </span>
+                                </a>
                             @empty
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('fields.no-notifications') }}
@@ -266,7 +268,9 @@
                             @forelse ($notifications as $item)
                                 <span
                                     class='block px-4 py-2 text-sm leading-5 text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:bg-gray-100'>
-                                    {{ __('fields.notify-product', ['productName' => $item->name]) }}
+                                    <x-jet-responsive-nav-link href="{{ route('admin.products') }}">
+                                        {{ __('fields.notify-product', ['productName' => $item->name]) }}
+                                    </x-jet-responsive-nav-link>
                                 </span>
                             @empty
                                 <div class="block px-4 py-2 text-xs text-gray-400">
