@@ -112,11 +112,20 @@
                 @endif
 
 
+                <!-- Receipts Link -->
+                @if (auth()->user()->has('p-receipts'))
+                    <div class="hidden sm:-my-px lg:mx-1 2xl:mx-1 lg:flex">
+                        <x-jet-nav-link href="{{ route('adminDash.receipts') }}" :active="request()->routeIs('adminDash.receipts')"
+                            src="{{ asset('img/icons/qr.svg') }}" alt="icon-alt" text="{{ __('fields.receipts') }}" />
+                    </div>
+                @endif
+
+
                 <!-- Reports Link -->
                 @if (auth()->user()->has('p-reports'))
                     <div class="hidden sm:-my-px lg:mx-1 2xl:mx-1 lg:flex">
-                        <x-jet-nav-link href="{{ route('admin.reports') }}" :active="request()->routeIs('admin.reports')"
-                            src="{{ asset('img/icons/qr.svg') }}" alt="icon-alt" text="{{ __('fields.reports') }}" />
+                        <x-jet-nav-link href="{{ route('admin.dailyReports') }}" :active="request()->routeIs('admin.dailyReports')"
+                            src="{{ asset('img/icons/reports.png') }}" alt="icon-alt" text="{{ __('fields.reports') }}" />
                     </div>
                 @endif
 
@@ -373,9 +382,17 @@
             @endif
 
 
+            <!-- Receipts Link -->
+            @if (auth()->user()->has('p-receipts'))
+                <x-jet-responsive-nav-link href="{{ route('adminDash.receipts') }}" :active="request()->routeIs('adminDash.receipts')">
+                    {{ __('fields.receipts') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+
             <!-- Reports Link -->
             @if (auth()->user()->has('p-reports'))
-                <x-jet-responsive-nav-link href="{{ route('admin.reports') }}" :active="request()->routeIs('admin.reports')">
+                <x-jet-responsive-nav-link href="{{ route('admin.dailyReports') }}" :active="request()->routeIs('admin.dailyReports')">
                     {{ __('fields.reports') }}
                 </x-jet-responsive-nav-link>
             @endif

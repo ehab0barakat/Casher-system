@@ -15,6 +15,7 @@ use App\Http\Livewire\Admin\Suppliers as AdminSuppliers;
 use App\Http\Livewire\Admin\Expenses as AdminExpenses;
 use App\Http\Livewire\Admin\Categories as AdminCategories;
 use App\Http\Livewire\Admin\Reports as AdminReports;
+use App\Http\Livewire\Admin\DailyReports as AdminDailyReports;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,10 @@ Route::middleware([
 
     Route::get('/receipts/{orderId}', AdminReceipts::class)->name('admin.receipts');
 
+    Route::middleware(['checkPermission:p-reports'])->get('/dashboard/reports', AdminDailyReports::class)->name('admin.dailyReports');
+
+    Route::middleware(['checkPermission:p-receipts'])->get('/dashboard/receipts', AdminReports::class)->name('adminDash.receipts');
+
     Route::middleware(['checkPermission:p-expenses'])->get('/dashboard/expenses', AdminExpenses::class)->name('admin.expenses');
 
     Route::middleware(['checkPermission:p-suppliers'])->get('/dashboard/suppliers', AdminSuppliers::class)->name('admin.suppliers');
@@ -99,7 +104,7 @@ Route::middleware([
 
     Route::middleware(['checkPermission:p-users'])->get('/dashboard/categories', AdminCategories::class)->name('admin.categories');
 
-    Route::middleware(['checkPermission:p-users'])->get('/dashboard/reports', AdminReports::class)->name('admin.reports');
+    // Route::middleware(['checkPermission:p-users'])->get('/dashboard/reports', AdminReports::class)->name('admin.reports');
 });
 
 Route::get('/no-permission', function () {

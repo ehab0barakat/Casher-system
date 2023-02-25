@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
         $p = Permission::create([
             'key' => 'p-expenses',
         ]);
+        $p = Permission::create([
+            'key' => 'p-receipts',
+        ]);
         array_push($permissionsIdList, $p->id);
 
         $p = Permission::create([

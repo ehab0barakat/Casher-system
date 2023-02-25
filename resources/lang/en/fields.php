@@ -157,5 +157,10 @@ return [
     'Barcode' => 'Barcode',
     'client' => 'Client',
     'reports' => 'Reports',
+    'day' => 'Day',
+    'capital' => 'Capital',
+    'capital_gross' => 'Capital Gross',
+    'profit' => 'Profit',
+    'receipts' => 'Receipts',
 
 ];

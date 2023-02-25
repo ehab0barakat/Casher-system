@@ -151,6 +151,11 @@ return [
     'not-available' => 'غير متاح',
     "casher" => " البائع",
     'reports' => 'التقارير',
+    'day' => 'اليوم',
+    'capital' => 'رأس المال',
+    'capital_gross' => 'التضخم في رأس المال',
+    'profit' => 'الربح',
+    'receipts' => 'الفواتير',
 
 
 

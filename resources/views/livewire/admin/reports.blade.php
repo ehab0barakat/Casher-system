@@ -1,22 +1,22 @@
 <div>
 
     <!-- Summary Table -->
-    <input type="text" id="daterange"  />
+    <input type="text" id="daterange" />
 
     <div class="w-full overflow-y-auto shadow-md rounded-xl border-m-orange-l/20 shadow-m-orange-l/50 flex ">
-        <x-table style="width:80%" >
+        <x-table style="width:80%">
 
             <x-slot name="head">
 
                 <x-table.heading>#</x-table.heading>
 
-                <x-table.heading  >{{ __('fields.casher') }}</x-table.heading>
+                <x-table.heading>{{ __('fields.casher') }}</x-table.heading>
 
                 {{--  <x-table.heading>{{ __('fields.branch') }}</x-table.heading>  --}}
 
-                <x-table.heading  >{{ __('fields.client') }}</x-table.heading>
+                <x-table.heading>{{ __('fields.client') }}</x-table.heading>
 
-                <x-table.heading class="flex justify-center" >{{ __('fields.products') }}</x-table.heading>
+                <x-table.heading class="flex justify-center">{{ __('fields.products') }}</x-table.heading>
 
                 <x-table.heading>{{ __('fields.subtotal') }}</x-table.heading>
 
@@ -30,13 +30,12 @@
 
             </x-slot>
 
-            <x-slot name="body" >
+            <x-slot name="body">
                 @forelse ($itemsList as $item)
 
-                    <x-table.row  wire:key='t-r-{{ $loop->index }}' wire:loading.class.delay="opacity-50"
-                        class=" transition delay-100 {{$loop->index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-100'  }} "
-                            style="background-color: {{$item->order_type  == '1' ? 'rgb(254 226 226)' : '' }} "
-                        >
+                    <x-table.row wire:key='t-r-{{ $loop->index }}' wire:loading.class.delay="opacity-50"
+                        class=" transition delay-100 {{ $loop->index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-100' }} "
+                        style="background-color: {{ $item->order_type == '1' ? 'rgb(254 226 226)' : '' }} ">
 
                         <x-table.cell class="text-center">{{ ++$loop->index }}</x-table.cell>
 
@@ -51,28 +50,28 @@
                             <x-table.cell>No Name</x-table.cell>
                         @endif
 
-                        <x-table.cell class="bg-red flex justify-center" >
+                        <x-table.cell class="bg-red flex justify-center">
 
                             <table class="w-full">
 
-                                    <thead>
-                                        <tr class="flex justify-between">
-                                            <th class="text-center p-1">Product name</th>
-                                            <th class="text-center p-1">Quantity</th>
-                                            <th class="text-center p-1">Price</th>
-                                            <th class="text-center p-1">Subtotal</th>
-                                        </tr>
+                                <thead>
+                                    <tr class="flex justify-between">
+                                        <th class="text-center p-1">Product name</th>
+                                        <th class="text-center p-1">Quantity</th>
+                                        <th class="text-center p-1">Price</th>
+                                        <th class="text-center p-1">Subtotal</th>
+                                    </tr>
 
-                                    </thead>
+                                </thead>
 
-                                <tbody >
+                                <tbody>
 
                                     @foreach ($item->products as $product)
                                         <tr class="flex justify-between	">
                                             <td class="text-center p-1 w-min">{{ $product->name }}</td>
                                             <td class="text-center p-1 ">{{ $product->quantity }}</td>
                                             <td class="text-center p-1">{{ $product->costPrice }}</td>
-                                            <td class="text-center p-1">{{ $product->costTotal}}</td>
+                                            <td class="text-center p-1">{{ $product->costTotal }}</td>
                                         </tr>
                                     @endforeach
 
@@ -88,7 +87,9 @@
 
                         <x-table.cell class="text-center">{{ $item->total }}</x-table.cell>
 
-                        <x-table.cell class="text-center">{{ $item->total - $item->products()->sum('retailTotal') -  $item->discount }}</x-table.cell>
+                        <x-table.cell class="text-center">
+                            {{ $item->total - $item->products()->sum('retailTotal') - $item->discount }}
+                        </x-table.cell>
 
 
                         <x-table.cell class="text-center">
@@ -105,7 +106,7 @@
                 @empty
                     <x-table.row wire:loading.class.delay="opacity-50" class="transition delay-100">
 
-                        <x-table.cell colspan="6">
+                        <x-table.cell colspan="9">
 
                             <div class="flex items-center justify-center  flex-grow">
 
@@ -125,6 +126,13 @@
 
         </x-table>
 
+
+    </div>
+
+
+    {{-- Pagination --}}
+    <div class="flex justify-evenly	mt-5 gap-1">
+        {!! $itemsList->links() !!}
     </div>
 
     <script>
@@ -138,7 +146,7 @@
     </script>
 
     <style>
-        body{
+        body {
             overflow-y: scroll !important;
         }
     </style>

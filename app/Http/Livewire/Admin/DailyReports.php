@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\DailyReport;
 use Livewire\Component;
-use App\Models\Order;
 use Carbon\Carbon;
 use Tests\Feature\UpdatePasswordTest;
 
-class Reports extends Component
+class DailyReports extends Component
 {
 
     public $startDate = null;
@@ -26,17 +26,17 @@ class Reports extends Component
 
     public function render()
     {
-        $shift = Order::whereBetween('created_at', [carbon::today(), Carbon::now()])->sum("total");
+        $shift = DailyReport::whereBetween('created_at', [carbon::today(), Carbon::now()])->sum("total");
         if($this->startDate == null || $this->endDate == null){
-            $itemsList = Order::orderByDesc("created_at")
-            ->paginate(20);
+            $itemsList = DailyReport::orderByDesc("created_at")
+            ->paginate(30);
         }else{
-            $itemsList = Order::whereBetween('created_at', [$this->startDate, $this->endDate])
+            $itemsList = DailyReport::whereBetween('created_at', [$this->startDate, $this->endDate])
             ->orderByDesc("created_at")
-            ->paginate(20);
+            ->paginate(30);
         }
 
-        return view('livewire.admin.reports' , [
+        return view('livewire.admin.dailyReports' , [
             'itemsList' => $itemsList ,
             'shift' => $shift ,
         ]);
