@@ -176,12 +176,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->addUsersWithPermissionsForMainBranch();
-        $this->addWorkersWithBranches();
-        $this->addSuppliers();
-        $this->addClients();
-        $this->addCategories();
-        $this->addProducts();
-        $this->addExpenses();
+        // $this->addWorkersWithBranches();
+        // $this->addSuppliers();
+        // $this->addClients();
+        // $this->addCategories();
+        // $this->addProducts();
+        // $this->addExpenses();
 
     }
 }

@@ -1,10 +1,10 @@
-@props(['item' => $_GET["item"] ?? ''])
+@props(['item' => $_GET['item'] ?? ''])
 <div>
 
     <script>
         var item = {!! json_encode($item) !!};
-        if(item){
-            $( document ).ready(function() {
+        if (item) {
+            $(document).ready(function() {
                 livewire.emit('editItem', item);
             })
         }
@@ -68,12 +68,12 @@
                     </div>
 
                     <div class="flex items-center justify-center gap-4">
-                        <x-buttons.filter wire:click="sortBy('costPrice')" :selected="$field == 'costPrice'" :isAscending="$direction == 'asc'">
-                            {{ __('fields.cost-price') }}
-                        </x-buttons.filter>
-
                         <x-buttons.filter wire:click="sortBy('retailPrice')" :selected="$field == 'retailPrice'" :isAscending="$direction == 'asc'">
                             {{ __('fields.retail-price') }}
+                        </x-buttons.filter>
+
+                        <x-buttons.filter wire:click="sortBy('costPrice')" :selected="$field == 'costPrice'" :isAscending="$direction == 'asc'">
+                            {{ __('fields.cost-price') }}
                         </x-buttons.filter>
 
                         <x-buttons.filter wire:click="sortBy('supplier_id')" :selected="$field == 'supplier_id'" :isAscending="$direction == 'asc'">
@@ -165,14 +165,14 @@
                                     {{ __('fields.name') }}
                                 </x-buttons.filter>
 
-                                <x-buttons.filter wire:click="sortBy('costPrice')" :selected="$field == 'costPrice'"
-                                    :isAscending="$direction == 'asc'">
-                                    {{ __('fields.cost-price') }}
-                                </x-buttons.filter>
-
                                 <x-buttons.filter wire:click="sortBy('retailPrice')" :selected="$field == 'retailPrice'"
                                     :isAscending="$direction == 'asc'">
                                     {{ __('fields.retail-price') }}
+                                </x-buttons.filter>
+
+                                <x-buttons.filter wire:click="sortBy('costPrice')" :selected="$field == 'costPrice'"
+                                    :isAscending="$direction == 'asc'">
+                                    {{ __('fields.cost-price') }}
                                 </x-buttons.filter>
 
                                 <x-buttons.filter wire:click="sortBy('supplier_id')" :selected="$field == 'supplier_id'"
@@ -199,9 +199,8 @@
 
                     <div class="flex items-center justify-start gap-4">
 
-                        <x-buttons.switch title="{{ __('fields.add-edit') }}"
-                        wire:click="Switch" class="flex items-center gap-2"
-                            :disable='$showRestock'>
+                        <x-buttons.switch title="{{ __('fields.add-edit') }}" wire:click="Switch"
+                            class="flex items-center gap-2" :disable='$showRestock'>
                             <x-icons.add-edit />
                         </x-buttons.switch>
 
@@ -215,14 +214,14 @@
                                 reactToPaste: true, // Compatibility to built-in scanners in paste-mode (as opposed to keyboard-mode)
                                 onScan: function(sCode, iQty) { // Alternative to document.addEventListener('scan')
                                     document.getElementById("barcodeId").value = sCode;
-                                        Livewire.emit('scan', sCode);
+                                    Livewire.emit('scan', sCode);
                                 },
                             });
                         </script>
 
                         <x-buttons.switch title="{{ __('fields.restock') }}" wire:click="Switch"
-                            class="flex items-center gap-2" :disable='!$showRestock' >
-                            <x-icons.restock  />
+                            class="flex items-center gap-2" :disable='!$showRestock'>
+                            <x-icons.restock />
                         </x-buttons.switch>
 
                     </div>
@@ -378,15 +377,6 @@
 
                                 </x-input.group>
 
-                                <x-input.group inline label="{{ __('fields.cost-price') }}" for='product.costPrice'
-                                    :error="$errors->first('editing.costPrice')">
-
-                                    <x-jet-input wire:model.defer='editing.costPrice' id="product.costPrice"
-                                        class="block w-full" type="text" name="editing.costPrice"
-                                        placeholder="{{ __('placeholders.enter-cost-price') }}" :value="old('editing.costPrice')" />
-
-                                </x-input.group>
-
                                 <x-input.group inline label="{{ __('fields.retail-price') }}"
                                     for='product.retail-price' :error="$errors->first('editing.retailPrice')">
 
@@ -394,6 +384,15 @@
                                         class="block w-full" type="text" name="editing.retail-price"
                                         placeholder="{{ __('placeholders.enter-retail-price') }}"
                                         :value="old('editing.retail-price')" />
+
+                                </x-input.group>
+
+                                <x-input.group inline label="{{ __('fields.cost-price') }}" for='product.costPrice'
+                                    :error="$errors->first('editing.costPrice')">
+
+                                    <x-jet-input wire:model.defer='editing.costPrice' id="product.costPrice"
+                                        class="block w-full" type="text" name="editing.costPrice"
+                                        placeholder="{{ __('placeholders.enter-cost-price') }}" :value="old('editing.costPrice')" />
 
                                 </x-input.group>
 

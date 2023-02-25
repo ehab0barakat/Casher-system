@@ -48,6 +48,15 @@ class Dashboard extends Component
             ]
         );
 
+
+        $orderReport = [
+            "total" => 0,
+            "capital" => 0,
+            "capital_gross" => 0,
+            "profit" => 0,
+
+        ];
+
         //CREATE ITEMS IN ORDER
         foreach ($this->itemsList as $key => $item) {
 
@@ -64,9 +73,17 @@ class Dashboard extends Component
                 'retailTotal' => $product->retailPrice * $item['quantity'],
             ]);
 
+            $orderReport["total"] += $product->costPrice * $item['quantity'];
+            $orderReport["capital"] += $product->retailPrice;
+            $orderReport["capital_gross"] += $product->retailPrice * .1;
+            $orderReport["profit"] +=  ($product->costPrice * $item['quantity']) - (1.1 * $product->retailPrice);
+
             //UPDATE QUANTITY
-            $product->update(["quantity" => $product->quantity + $item['quantity']]);
+            Product::updateQuantity($item['id'], $item['quantity']);
         }
+
+        // DailyReport
+        DailyReport::addOrUpdate($orderReport , false);
 
         //RESET ORDER
         $this->cancelOrder();
