@@ -56,10 +56,10 @@
 
                                 <thead>
                                     <tr class="flex justify-between">
-                                        <th class="text-center p-1">Product name</th>
-                                        <th class="text-center p-1">Quantity</th>
-                                        <th class="text-center p-1">Price</th>
-                                        <th class="text-center p-1">Subtotal</th>
+                                        <th class="text-center p-1 w-1/4"> {{__("fields.name")}}</th>
+                                        <th class="text-center p-1 w-1/4"> {{__("fields.quantity")}} </th>
+                                        <th class="text-center p-1 w-1/4">{{__("fields.price")}}</th>
+                                        <th class="text-center p-1 w-1/4">{{__("fields.subtotal")}}</th>
                                     </tr>
 
                                 </thead>
@@ -68,10 +68,10 @@
 
                                     @foreach ($item->products as $product)
                                         <tr class="flex justify-between	">
-                                            <td class="text-center p-1 w-min">{{ $product->name }}</td>
-                                            <td class="text-center p-1 ">{{ $product->quantity }}</td>
-                                            <td class="text-center p-1">{{ $product->costPrice }}</td>
-                                            <td class="text-center p-1">{{ $product->costTotal }}</td>
+                                            <td class="text-center p-1  w-1/4">{{ $product->name }}</td>
+                                            <td class="text-center p-1 w-1/4">{{ $product->quantity }}</td>
+                                            <td class="text-center p-1 w-1/4">{{ $product->costPrice }}</td>
+                                            <td class="text-center p-1 w-1/4">{{ $product->costTotal }}</td>
                                         </tr>
                                     @endforeach
 
@@ -95,7 +95,7 @@
                         <x-table.cell class="text-center">
                             <a href="{{ url('/receipts') . '/' . $loop->iteration }}" target="_blank">
                                 <button>
-                                    <img class="w-5 h-5 shadow-xl 2xl:w-5 2xl:h-5 lg:w-10 lg:h-10 "
+                                    <img class="w-10 h-10 shadow-xl 2xl:w-10 2xl:h-10 lg:w-15 lg:h-15 "
                                         src="{{ asset('img/icons/qr.svg') }}" alt="qr-scanner-gif">
                                 </button>
                             </a>

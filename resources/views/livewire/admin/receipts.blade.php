@@ -47,7 +47,7 @@
 
             @if ($order->client)
                 <span class="font-bold text-black	text-lg ">Customer Name:
-                    <span class="font-bold text-black	text-lg ">{{ $order->client->name }}</span>
+                    <span class="font-bold text-black text-lg ">{{ $order->client->name }}</span>
                 </span>
             @endif
 

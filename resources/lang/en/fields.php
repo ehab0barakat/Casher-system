@@ -162,5 +162,6 @@ return [
     'capital_gross' => 'Capital Gross',
     'profit' => 'Profit',
     'receipts' => 'Receipts',
+    'receipt' => 'Receipt',
 
 ];

@@ -156,6 +156,8 @@ return [
     'capital_gross' => 'التضخم في رأس المال',
     'profit' => 'الربح',
     'receipts' => 'الفواتير',
+    'receipt' => 'الفواتير',
+    'quantity' => 'الكمية',
 
 
 
