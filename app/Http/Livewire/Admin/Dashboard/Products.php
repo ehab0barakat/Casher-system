@@ -37,8 +37,9 @@ class Products extends Component
     public function render()
     {
         $this->products = Product::select('id', 'name', 'photo')
+        ->where("barcodeId",null)
         ->search('name', $this->searchProduct)
-        ->where("category_id" , $this->selectedCategoryId )
+        // ->where("category_id" , $this->selectedCategoryId )
         ->orderBy('created_at', 'asc')
         ->get();
 

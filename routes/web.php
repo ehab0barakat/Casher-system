@@ -102,9 +102,8 @@ Route::middleware([
 
     Route::middleware(['checkPermission:p-users'])->get('/dashboard/users', AdminUsers::class)->name('admin.users');
 
-    Route::middleware(['checkPermission:p-users'])->get('/dashboard/categories', AdminCategories::class)->name('admin.categories');
+    Route::middleware(['checkPermission:p-categories'])->get('/dashboard/categories', AdminCategories::class)->name('admin.categories');
 
-    // Route::middleware(['checkPermission:p-users'])->get('/dashboard/reports', AdminReports::class)->name('admin.reports');
 });
 
 Route::get('/no-permission', function () {

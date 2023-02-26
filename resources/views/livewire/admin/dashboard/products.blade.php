@@ -23,7 +23,7 @@
             <div wire:loading.class.delay='opacity-50'
                 class="grid grid-flow-col grid-rows-4 gap-2 pt-1 pb-2 overflow-x-auto transition delay-100 2xl:gap-2 lg:gap-2">
 
-                @forelse ($products as $key => $product)
+                @forelse ($produwcts as $key => $product)
                     <div class="" wire:key='l-s-{{ $key }}'>
                         <x-cards.product-simple id="{{ $product->id }}" name="{{ $product->name }}"
                             url="{{ $product->getPhotoOrDefaultUrlAttribute()}}"

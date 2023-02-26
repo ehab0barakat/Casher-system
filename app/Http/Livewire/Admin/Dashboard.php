@@ -70,16 +70,16 @@ class Dashboard extends Component
                 'costPrice' => $product->costPrice,
                 'retailPrice' => $product->retailPrice,
                 'costTotal' => $product->costPrice * $item['quantity'],
-                'retailTotal' => $product->retailPrice * $item['quantity'],
+                'retailTotal' => $product->costPrice * $item['quantity'],
             ]);
 
             $orderReport["total"] += $product->costPrice * $item['quantity'];
-            $orderReport["capital"] += $product->retailPrice;
-            $orderReport["capital_gross"] += $product->retailPrice * .1;
-            $orderReport["profit"] +=  ($product->costPrice * $item['quantity']) - (1.1 * $product->retailPrice);
+            $orderReport["capital"] += $product->costPrice;
+            $orderReport["capital_gross"] += $product->costPrice * .1;
+            $orderReport["profit"] +=  ($product->costPrice * $item['quantity']) - (1.1 * $product->costPrice);
 
             //UPDATE QUANTITY
-            Product::updateQuantity($item['id'], $item['quantity']);
+            Product::updateQuantity($item['id'],  -$item['quantity']);
         }
 
         // DailyReport
@@ -114,7 +114,6 @@ class Dashboard extends Component
             //FOR PRODUCTS
             if (Str::contains($key, '0_')) {
                 $result = Product::checkQuantityBeforeOrder($item['id'], $item['quantity']);
-
                 if (isset($result)) {
                     $this->notify(true, __('messages.product-no-quantity', ['productName' => $result]));
                     return $this->showFinish = false;
@@ -153,13 +152,13 @@ class Dashboard extends Component
                 'costPrice' => $product->costPrice,
                 'retailPrice' => $product->retailPrice,
                 'costTotal' => $product->costPrice * $item['quantity'],
-                'retailTotal' => $product->retailPrice * $item['quantity'],
+                'retailTotal' => $product->costPrice * $item['quantity'],
             ]);
 
             $orderReport["total"] += $product->costPrice * $item['quantity'];
-            $orderReport["capital"] += $product->retailPrice;
-            $orderReport["capital_gross"] += $product->retailPrice * .1;
-            $orderReport["profit"] +=  ($product->costPrice * $item['quantity']) - (1.1 * $product->retailPrice);
+            $orderReport["capital"] += $product->costPrice;
+            $orderReport["capital_gross"] += $product->costPrice * .1;
+            $orderReport["profit"] +=  ($product->costPrice * $item['quantity']) - (1.1 * $product->costPrice);
 
             //UPDATE QUANTITY
             Product::updateQuantity($item['id'], $item['quantity']);
@@ -189,16 +188,17 @@ class Dashboard extends Component
 
     public $total = 0;
 
-    //FOR ITEMS
-    // 0_id => PRODUCT
-    // 1_id => SERVICE
 
     public function increaseQuantity($key)
     {
         if (array_key_exists($key, $this->itemsList)) {
 
+            // if($this->itemsList[$key]['quantity'] == Product::find($this->itemsList[$key]["id"])->quantity){
+            //     return $this->notify(true, __('messages.out-of-storage'));
+            // }
+
             $this->itemsList[$key]['quantity']++;
-            $this->subtotal += $this->itemsList[$key]['retailPrice'];
+            $this->subtotal += $this->itemsList[$key]['costPrice'];
             $this->total = $this->subtotal - $this->discount;
         }
     }
@@ -209,7 +209,7 @@ class Dashboard extends Component
 
             if ($this->itemsList[$key]['quantity'] != 1) {
                 $this->itemsList[$key]['quantity']--;
-                $this->subtotal -= $this->itemsList[$key]['retailPrice'];
+                $this->subtotal -= $this->itemsList[$key]['costPrice'];
                 $this->total = $this->subtotal - $this->discount;
             }
         }
@@ -229,7 +229,7 @@ class Dashboard extends Component
 
     public function deleteItem()
     {
-        $subtract = $this->itemsList[$this->selectedItemKey]['quantity'] * $this->itemsList[$this->selectedItemKey]['retailPrice'];
+        $subtract = $this->itemsList[$this->selectedItemKey]['quantity'] * $this->itemsList[$this->selectedItemKey]['costPrice'];
 
         $this->subtotal -= $subtract;
         $this->total -= $subtract;
@@ -306,13 +306,13 @@ class Dashboard extends Component
             $this->itemsList['0_' . $scannedProduct->id] = [
                 'id' => $scannedProduct->id,
                 'name' => $scannedProduct->name,
-                'retailPrice' => $scannedProduct->retailPrice,
-                'retailPriceInCurrency' => $scannedProduct->retailPriceInCurrency,
+                'costPrice' => $scannedProduct->costPrice,
+                'costPriceInCurrency' => $scannedProduct->costPriceInCurrency,
                 'quantity' => 1,
             ];
         }
 
-        $this->subtotal += $scannedProduct->retailPrice;
+        $this->subtotal += $scannedProduct->costPrice;
         $this->total = $this->subtotal - $this->discount;
         $this->typedBarcodeId = '';
     }
@@ -329,19 +329,20 @@ class Dashboard extends Component
             return $this->notify(true, __('messages.product-not-found'));
 
         if (array_key_exists('0_' . $scannedProduct->id, $this->itemsList)) {
+            $this->increaseQuantity('0_'.$scannedProduct->id);
 
-            $this->itemsList['0_' . $scannedProduct->id]['quantity']++;
+            // $this->itemsList['0_' . $scannedProduct->id]['quantity']++;
         } else {
             $this->itemsList['0_' . $scannedProduct->id] = [
                 'id' => $scannedProduct->id,
                 'name' => $scannedProduct->name,
-                'retailPrice' => $scannedProduct->retailPrice,
-                'retailPriceInCurrency' => $scannedProduct->retailPriceInCurrency,
+                'costPrice' => $scannedProduct->costPrice,
+                'costPriceInCurrency' => $scannedProduct->costPriceInCurrency,
                 'quantity' => 1,
             ];
         }
 
-        $this->subtotal += $scannedProduct->retailPrice;
+        $this->subtotal += $scannedProduct->costPrice;
         $this->total = $this->subtotal - $this->discount;
     }
 
@@ -380,15 +381,15 @@ class Dashboard extends Component
             if (!isset($selectedProduct))
                 return $this->notify(true, __('messages.product-not-found'));
 
-            if (array_key_exists('1_' . $selectedProduct->id, $this->itemsList)) {
+            if (array_key_exists('0_' . $selectedProduct->id, $this->itemsList)) {
 
-                $this->itemsList['1_' . $selectedProduct->id]['quantity']++;
+                $this->itemsList['0_' . $selectedProduct->id]['quantity']++;
             } else {
-                $this->itemsList['1_' . $selectedProduct->id] = [
+                $this->itemsList['0_' . $selectedProduct->id] = [
                     'id' => $selectedProduct->id,
                     'name' => $selectedProduct->name,
-                    'retailPrice' => $selectedProduct->costPrice,
-                    'retailPriceInCurrency' => $selectedProduct->costPriceInCurrency,
+                    'costPrice' => $selectedProduct->costPrice,
+                    'costPriceInCurrency' => $selectedProduct->costPriceInCurrency,
                     'quantity' => 1,
                 ];
             }

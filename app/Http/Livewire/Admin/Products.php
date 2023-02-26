@@ -132,23 +132,32 @@ class Products extends Component
             $this->editing->photo = $this->photo->store('/', 'products');
         }
 
-            if($this->barcodeId != null){
-                $this->editing->barcodeId = $this->barcodeId;
-            }
+        if ($this->barcodeId != null) {
+            $this->editing->barcodeId = $this->barcodeId;
+        }
 
-        if (($this->showEdit || $this->showEditModal)) {
+        if(!$this->editing->supplier_id){
+            $this->editing->supplier_id = NULL;
+        }
+
+        if(!$this->editing->category_id){
+            $this->editing->category_id = NULL;
+        }
+
+
+        // if (($this->showEdit || $this->showEditModal)) {
             $this->editing->save();
             $this->notify(true, __('messages.product-saved'));
-        } else {
-            $this->editing->setBarcodeIdAndSave();
-            $this->notify(true, __('messages.product-saved'));
-        }
+        // } else {
+            // $this->editing->setBarcodeIdAndSave();
+            // $this->notify(true, __('messages.product-saved'));
+        // }
 
 
         $this->showEditModal = false;
         $this->resetProduct();
         $this->showEdit = false;
-        $this->barcodeId = null ;
+        $this->barcodeId = null;
     }
 
 
@@ -189,30 +198,24 @@ class Products extends Component
 
     ///// SWITCHES
 
-        public function Switch()
-        {
-        $this->showRestock = !$this->showRestock ;
+    public function Switch()
+    {
+        $this->showRestock = !$this->showRestock;
         $this->resetProduct();
         $this->resetRestock();
-
-
-        }
-
-
-
-
+    }
 
     //COMPONENT
     public function rules()
     {
         $rules = [
             'editing.name' => 'required|min:3',
-            'editing.supplier_id' => 'required|in:' . $this->suppliers->pluck('id')->implode(','),
+            'editing.supplier_id' => 'nullable|in:' . $this->suppliers->pluck('id')->implode(','),
             'editing.quantity' => 'required|numeric|min:1|max:999',
+            'editing.retailPrice' => 'required|numeric|min:1|max:99999|lt:editing.costPrice',
             'editing.costPrice' => 'required|numeric|min:1|max:99999',
-            'editing.retailPrice' => 'required|numeric|min:1|max:99999',
             'photo' => 'nullable|image|max:1024',
-            'editing.category_id' => "required|exists:categories,id",
+            'editing.category_id' => "nullable|exists:categories,id",
             'editing.barcodeId' => "nullable|unique:products,barcodeId," . $this->editing->id,
         ];
 
@@ -248,7 +251,7 @@ class Products extends Component
     ];
     public function editItem($item)
     {
-        $this->editing = Product::find($item) ;
+        $this->editing = Product::find($item);
     }
 
     public $barcodeId;
@@ -257,30 +260,28 @@ class Products extends Component
         if (empty($barCodeId))
             return $this->notify(false, __('messages.barcode-id-not-add'));
 
-            $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->whereStatus("1")->first();
+        $scannedProduct = Product::where('barcodeId', '=', $barCodeId)->whereStatus("1")->first();
 
-            if (!isset($scannedProduct)){
+        if (!isset($scannedProduct)) {
             $this->showRestock = false;
             $this->showEdit = true;
             $this->barcodeId = $barCodeId;
-        }else{
+        } else {
 
-            if($this->showRestock && !$this->showEdit){
+            if ($this->showRestock && !$this->showEdit) {
                 $this->showRestock = true;
                 $this->showEdit = False;
                 $this->selectedProductId = $scannedProduct->id;
                 $this->restock = $scannedProduct->quantity;
             }
 
-            if(!$this->showRestock && !$this->showEdit){
+            if (!$this->showRestock && !$this->showEdit) {
                 $this->showEdit($scannedProduct);
-
             }
 
 
             // dd($this->showRestock ,  $this->showEdit);
         }
-
     }
 
     public function render()

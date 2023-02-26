@@ -20,15 +20,15 @@
                     class="w-full p-4 bg-white border shadow-md 2xl:p-4 lg:p-2 rounded-xl border-m-orange-l/20 shadow-m-orange-l/50">
 
 
-                        @if (!$PickProducts)
+                        {{-- @if (!$PickProducts)
 
                             @livewire('admin.dashboard.categories')
 
-                        @else
+                        @else --}}
 
                             @livewire('admin.dashboard.products')
 
-                        @endif
+                        {{-- @endif --}}
 
                 </div>
 
@@ -81,7 +81,7 @@
 
                                     <x-table.cell>{{ $item['name'] }}</x-table.cell>
 
-                                    <x-table.cell>{{ $item['retailPriceInCurrency'] }}</x-table.cell>
+                                    <x-table.cell>{{ $item['costPriceInCurrency'] }}</x-table.cell>
 
                                     <x-table.cell>
 
@@ -106,7 +106,7 @@
                                     </x-table.cell>
 
                                     <x-table.cell>
-                                        {{ \App\Util\Formatting::formatInCurrency($item['quantity'] * $item['retailPrice']) }}
+                                        {{ \App\Util\Formatting::formatInCurrency($item['quantity'] * $item['costPrice']) }}
                                     </x-table.cell>
 
                                     <x-table.cell>

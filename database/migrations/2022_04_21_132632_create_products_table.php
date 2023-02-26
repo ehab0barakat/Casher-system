@@ -15,13 +15,14 @@
         {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('supplier_id')->constrained('suppliers', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+                $table->foreignId('category_id')->nullable()->constrained('categories', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+                $table->foreignId('supplier_id')->nullable()->constrained('suppliers', 'id')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->string('name');
                 $table->unsignedSmallInteger('quantity');
                 $table->double('costPrice', 8, 2);
                 $table->double('retailPrice', 8, 2);
                 $table->string('photo')->nullable();
-                $table->string('barcodeId')->unique()->default('');
+                $table->string('barcodeId')->nullable()->unique();
                 $table->enum('status', ['0', '1'])->default('1');
                 $table->timestamps();
             });

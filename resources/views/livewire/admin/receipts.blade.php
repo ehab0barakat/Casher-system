@@ -15,7 +15,7 @@
         <div class=" flex items-center justify-between px-4">
 
             <span>
-                <img class=" h-6" src="{{ asset('img/logo.png') }}">
+                <img class="h-30" src="{{ asset('img/logo3.ico') }}">
             </span>
 
             <span>
@@ -118,7 +118,6 @@
                 <span class="font-bold text-black text-lg ">{{ $order->totalInCurrency . ' EGP' }}</span>
             </span>
 
-            <span class="h-64 flex items-end text-white">`</span>
 
         </div>
     </div>

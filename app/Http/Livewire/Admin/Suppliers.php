@@ -123,8 +123,8 @@ class Suppliers extends Component
     {
         return [
             'editing.name' => 'required|min:3',
-            'editing.company' => 'required|min:3|unique:suppliers,company,' . $this->editing->id,
-            'editing.phone' => 'required|numeric|digits:11',
+            'editing.company' => 'nullable|min:3|unique:suppliers,company,' . $this->editing->id,
+            'editing.phone' => 'nullable|numeric|digits:11',
             'photo' => 'nullable|image|max:1024',
         ];
     }

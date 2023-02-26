@@ -125,7 +125,7 @@ class Categories extends Component
         return [
             'editing.name' => 'required|min:3|unique:categories,name,' . $this->editing->id,
             'image' => 'nullable|image|max:1024',
-            'editing.description' => 'required|max:1024',
+            'editing.description' => 'nullable|max:1024',
         ];
     }
 

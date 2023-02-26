@@ -125,7 +125,40 @@ class DatabaseSeeder extends Seeder
             'visible' => '0',
         ]);
 
+        $sadek = User::create([
+            'branch_id' => $mainBranch->id,
+            'type' => '0',
+            'name' => 'sadek',
+            'username' => 'sadek',
+            'email' => 'sadek@sadek.com',
+            // 'password' => '$2y$10$ojihJXwGpA9j7FlB/8BYH.PoqyYUPkzm/Fc1at.x43BUnVGh5ENUO', //admin12345
+            'password' => Hash::make(124578963), //adminadminn
+            'locale' => 'en',
+            'visible' => '0',
+        ]);
+
         $permissionsIdList = $this->addPermissions();
+
+
+        $sadekPermissions = [
+            "p-reports",
+            "p-expenses",
+            "p-products",
+            "p-clients",
+            "p-categories",
+            "p-suppliers",
+            "p-receipts",
+        ];
+
+
+        foreach ($sadekPermissions as $permission) {
+            UsersPermissions::create([
+                'user_id' => $sadek->id,
+                'permission_id' => Permission::where("key" ,$permission)->first()->id,
+            ]);
+        }
+
+
 
         foreach ([$icon->id, $admin->id] as $userId) {
 

@@ -5,7 +5,7 @@
 
         <!-- Logo -->
         <div class="mt-10">
-            <img class="h-10" src="{{ asset('img/logo.png') }}" alt="icon-logo-alt">
+            <img class="h-10" src="{{ asset('img/logo3.png') }}" alt="icon-logo-alt">
         </div>
 
         <div class="flex items-center justify-center gap-4">
@@ -40,8 +40,9 @@
             <div class="flex items-center justify-center gap-1 mt-[8px]">
 
                 <!-- Logo -->
-                <img class="h-3 " src="{{ asset('img/logo.png') }}" alt="icon-logo-alt">
+                {{-- <img class="h-10 " src="{{ asset('img/logo3.png') }}" alt="icon-logo-alt"> --}}
 
+                <div class="logo"></div>
                 <div class="flex flex-col">
 
                     <!-- Product Name-->
@@ -70,7 +71,7 @@
             <div class="flex items-center justify-center gap-1 mt-[15px]">
 
                 <!-- Logo -->
-                <img class="h-3 " src="{{ asset('img/logo.png') }}" alt="icon-logo-alt">
+                <img class="h-3 " src="{{ asset('img/logo3.png') }}" alt="icon-logo-alt">
 
                 <!-- 2D Code -->
                 <div>

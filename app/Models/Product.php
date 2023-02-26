@@ -39,10 +39,7 @@ class Product extends Model
         return $this->name;
     }
 
-    public function getCategoryNameAttribute()
-    {
-        return $this->category->name;
-    }
+
 
     //FORMATTING
     public function getPhotoOrDefaultUrlAttribute()
@@ -55,9 +52,19 @@ class Product extends Model
 
     public function getSupplierNameAndCompanyAttribute()
     {
-        return $this->supplier->name . " ({$this->supplier->company})";
+        if($this->supplier){
+            return $this->supplier->name . " ({$this->supplier->company})";
+        }
+        return 'No Supplier Data' ;
     }
 
+    public function getCategoryNameAttribute()
+    {
+        if($this->category){
+            return $this->category->name ;
+        }
+        return 'No Category Data' ;
+    }
     public function getQuantityInThreeDigitsAttribute()
     {
         return Formatting::formatInThreeDigits($this->quantity);

@@ -105,7 +105,7 @@
                             costPrice="{{ $product->costPriceInCurrency }}"
                             retailPrice="{{ $product->retailPriceInCurrency }}"
                             supplierNameAndCompany="{{ $product->supplierNameAndCompany }}"
-                            categoryName="{{ $product->category->name }}" editAction='showEdit'
+                            categoryName="{{ $product->categoryName }}" editAction='showEdit'
                             quantity="{{ $product->quantityInThreeDigits }}" deleteAction='showDelete' />
                     </div>
                 @empty
